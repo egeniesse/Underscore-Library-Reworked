@@ -5,3 +5,5 @@ function each (list, iterator){
 		iterator(list[i]);
 	}
 };
+
+console.log("Hello World")
