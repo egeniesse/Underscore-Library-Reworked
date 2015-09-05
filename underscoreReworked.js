@@ -1,6 +1,7 @@
 // UnderscoreReworked by Eric Geniesse
 
 function test(){
+	
 
 	function each (list, iterator){
 	
@@ -31,24 +32,42 @@ function test(){
 
 	function reduce (list, iterator, start){
 
-		var total = start;
+		var total = start || 0; // If start isn't given a value, it is 0 by default.
 
-		if (total.constructor === Array){
-			each(list, function(value){
-				iterator(total, value);
-			});
-		}
-
-		else{
-			each(list, function(value){
-				total = iterator(total, value);
-			});
-		}
+		each(list, function(value){
+			total = iterator(total, value);
+		});
 		return total;
 	};
 
+	function reduceRight(list, iterator, start){
+		
+		list = list.reverse();
+		return reduce(list, iterator, start);
+
+	}
+
+	function flatten(list, shallow){
+		shallow = shallow || 0;
+		var array = list;
+		var toggle = true;
+
+		if (shallow !== 0){			
+			array = reduce(array, function(a,b){return a.concat(b)}, []);
+		}
+
+		else{
+			while (toggle){
+
+				array = reduce(array, function(a,b){return a.concat(b)}, []); // Reduces the array down one level
+				toggle = false; 
+				each(array, function(value){ // Checks to see if some of the values are still arrays
+					if (value.constructor == Array){ toggle = true; }					
+				});
+			};
+		}
+		return array;
+	};
 
 
-	console.log(reduce([1,2,3,4], function(num, mun){return num + mun}, 0))
-	console.log(reduce([1,2,3,4], function(array, num){array.push(num + 3);}, []))
 };
