@@ -47,6 +47,30 @@ function test(){
 
 	}
 
+	function find(list, predicate){
+
+		for (element in list){
+			if (predicate(list[element]))
+				return list[element];
+		};
+	};
+
+	function filter(list, predicate){
+		var filtArr = [];
+
+		each(list, function(value){
+			if (predicate(value)){ filtArr.push(value); }
+		});
+		return filtArr;
+	};
+
+
+	/*========================================================
+	The following functions are specific to arrays
+	========================================================*/
+
+
+
 	function flatten(list, shallow){
 		shallow = shallow || 0;
 		var array = list;
@@ -67,7 +91,6 @@ function test(){
 			};
 		}
 		return array;
+
 	};
-
-
 };
