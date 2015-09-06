@@ -1,5 +1,21 @@
 // UnderscoreReworked by Eric Geniesse
 
+/*==============================================
+These are the initial functions that will be
+used to create the directory
+==============================================*/
+
+function objCompare (object, properties){
+	var keys = Object.keys(properties);
+	var toggle = true;
+	each(keys, function(key){
+		if (properties[key] !== object[key]){
+			toggle = false;
+		}
+	});	
+	return toggle;
+};
+
 
 function each (list, iterator){
 
@@ -62,17 +78,15 @@ function filter(list, predicate){
 	return filtArr;
 };
 
-function where(list, properties){
-		
-	var keys = Object.keys(properties);
+function where(list, properties){	
 	return filter(list, function(object){
-		var toggle = true;
-		each(keys, function(key){
-			if (properties[key] !== object[key]){
-				toggle = false;
-			}
-		});
-		return toggle;
+		return objCompare(object, properties)
+	});
+};
+
+function findWhere(list, properties){
+	return find(list, function(object){
+		return objCompare(object, properties)
 	});
 };
 	
