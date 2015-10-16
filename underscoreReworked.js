@@ -119,3 +119,7 @@ function flatten(list, shallow){
 
 };
 
+function someThing(just, a, test){
+	var hello = "some string to fill the function's body";
+};
+
