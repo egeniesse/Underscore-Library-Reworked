@@ -14,22 +14,21 @@ function objCompare (object, properties){
 		}
 	});	
 	return toggle;
-};
+}
 
 
 function each (list, iterator){
 
-	if (list.constructor === Object){
-		for (key in list){
+	if(list.constructor === Object){
+		for (var key in list){
 			iterator(list[key]);
-		};
-	}
-	else{
+		}
+	} else{
 		for (var i = 0; i< list.length; i++){
 			iterator(list[i]);
-		};
+		}
 	}
-};
+}
 
 
 function map (list, iterator){
@@ -42,7 +41,7 @@ function map (list, iterator){
 
 	return newArr;
 
-};
+}
 
 function reduce (list, iterator, start){
 
@@ -52,7 +51,7 @@ function reduce (list, iterator, start){
 		total = iterator(total, value);
 	});
 	return total;
-};
+}
 
 function reduceRight(list, iterator, start){
 		
@@ -63,11 +62,11 @@ function reduceRight(list, iterator, start){
 
 function find(list, predicate){
 
-	for (element in list){
+	for (var element in list){
 		if (predicate(list[element]))
 			return list[element];
-	};
-};
+	}
+}
 
 function filter(list, predicate){
 	var filtArr = [];
@@ -76,24 +75,28 @@ function filter(list, predicate){
 		if (predicate(value)){ filtArr.push(value); }
 	});
 	return filtArr;
-};
+}
 
 function where(list, properties){	
 	return filter(list, function(object){
-		return objCompare(object, properties)
+		return objCompare(object, properties);
 	});
-};
+}
 
 function findWhere(list, properties){
 	return find(list, function(object){
-		return objCompare(object, properties)
+		return objCompare(object, properties);
 	});
-};
+}
 	
 
 	/*========================================================
 	The following functions are specific to arrays
 	========================================================*/
+
+function flat(array){
+	return reduce(array, funciton(a,b){ return a.concat(b); }, []);
+}
 
 
 
@@ -103,23 +106,25 @@ function flatten(list, shallow){
 	var toggle = true;
 
 	if (shallow !== 0){			
-		array = reduce(array, function(a,b){return a.concat(b)}, []);
+		array = flat(list);
 	}
 
 	else{
+
+
 		while (toggle){
-			array = reduce(array, function(a,b){return a.concat(b)}, []); // Reduces the array down one level
+			array = flat(array); // Reduces the array down one level
 			toggle = false; 
 			each(array, function(value){ // Checks to see if some of the values are still arrays
-				if (value.constructor == Array){ toggle = true; }					
+				if (Array.ArisArray(value) == Array){ toggle = true; }					
 			});
-		};
+		}
 	}
 	return array;
 
-};
+}
 
 function someThing(just, a, test){
 	var hello = "some string to fill the function's body";
-};
+}
 
